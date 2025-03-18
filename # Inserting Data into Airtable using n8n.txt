@@ -1,0 +1,82 @@
+# Inserting Data into Airtable using n8n
+
+## Overview
+This guide explains how to insert data into Airtable using the **Airtable node** in n8n. The data will be fetched from an **HTTP Request node** and then stored in an Airtable base. If you prefer another spreadsheet service, n8n also supports **Google Sheets** and other spreadsheet nodes.
+
+## Prerequisites
+Before proceeding, ensure you have the following:
+- An [Airtable](https://airtable.com/) account
+- An **Airtable base** set up
+- An **n8n** account and access to the **n8n Editor UI**
+- A valid **Access Token** for Airtable authentication
+
+## Step 1: Configure Your Airtable Table
+
+Before inserting data into Airtable, you need to set up a table with the correct structure:
+
+1. **Create an Airtable Account**
+   - Sign up at [Airtable](https://airtable.com/).
+   - Log in to your **Airtable workspace**.
+
+2. **Create a New Base**
+   - Click **Add a base from scratch**.
+   - Name it **beginner course**.
+
+3. **Configure the Table Structure**
+   - Rename `Table 1` to **orders**.
+   - Delete the **3 blank records** created by default.
+   - Delete irrelevant fields: **Notes, Assignee, and Status**.
+   - Modify the **primary field**:
+     - Rename `Name` to `orderID`.
+     - Set **Field Type** to **Number**.
+   - Add the remaining fields using the table below:
+
+| Field Name     | Field Type       |
+|---------------|----------------|
+| orderID       | Number          |
+| customerID    | Number          |
+| employeeName  | Single line text |
+| orderPrice    | Number          |
+| orderStatus   | Single line text |
+
+Your Airtable table is now set up and ready for data insertion.
+
+## Step 2: Add an Airtable Node in n8n
+
+1. **Open n8n Editor UI**
+   - Go to your **n8n workspace**.
+   - Add an **Airtable node** connected to the **HTTP Request node**.
+
+2. **Search for Airtable Node**
+   - Click the `+` icon next to the HTTP Request node.
+   - Search for **Airtable**.
+   - Select **Create a record** under **Record Actions**.
+
+3. **Configure Airtable Node Parameters**
+   - **Credential to connect with:**
+     - Click `+ Create new credential`.
+     - Select `Connect using: Access Token`.
+     - Follow [Airtable's API guide](https://airtable.com/api) to create your **Access Token**.
+     - Add required scopes and grant access to your **beginner course base**.
+     - Save and close the Credentials window.
+   - **Resource:** `Record`
+   - **Operation:** `Create`
+   - **Base:** Select `beginner course`
+   - **Table:** `orders`
+   - **Mapping Column Mode:** `Map automatically`
+     - Ensure the column names match the data fields.
+
+## Step 3: Test the Airtable Node
+
+1. Click **Test step** in the Airtable node.
+2. The request will process, and data should appear in your **Airtable base**.
+3. Verify that the **orders** table contains the expected data.
+
+## Final Workflow Structure
+After completing these steps, your workflow should look like this:
+
+```plaintext
+HTTP Request Node → Airtable Node
+```
+
+You have successfully integrated **n8n** with **Airtable** to automate data insertion! 🚀

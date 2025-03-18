@@ -1,0 +1,66 @@
+# Filtering Orders in n8n
+
+## Overview
+In this step of the workflow, you will learn how to filter data using conditional logic and expressions in nodes by using the **If node** in n8n. This will ensure that only orders with `orderStatus = processing` are inserted into Airtable, while the rest are summed up separately.
+
+### Workflow Outcome
+After this step, your workflow should be able to:
+- Filter orders based on their `orderStatus`.
+- Insert only **processing** orders into Airtable.
+- Sum up the total of all **booked** orders separately.
+
+---
+
+## Steps to Filter Orders
+
+### 1. Remove the Connection to the Airtable Node
+Since we only want to insert **processing** orders into Airtable, first remove the direct connection between the **HTTP Request** node and the **Airtable** node:
+
+- Hover over the arrow connecting the **HTTP Request** node and the **Airtable** node.
+- Click on the **trash icon** to remove the connection.
+
+### 2. Add and Configure the If Node
+
+Next, add an **If node** to the workflow, which will filter data based on `orderStatus`.
+
+#### Steps:
+1. Select the **+** icon next to the **HTTP Request** node.
+2. Search for **If node** and select it.
+3. In the If node settings, configure the parameters:
+
+   - **Set Value1** to `{{ $json.orderStatus }}`:
+     - Hover over the **Value1** field and select the **Expression** tab.
+     - Open the **Expression Editor** by clicking on the **link icon**.
+     - In the left panel, navigate to `HTTP Request > orderStatus` and drag it into the expression field.
+     - Close the Expression Editor.
+   
+   - **Operation**: Select `String > is equal to`
+   - **Set Value2** to `processing`
+
+4. Select **Test Step** to verify the results:
+   - Orders with `orderStatus = processing` should appear in the **True Branch output**.
+   - Orders with `orderStatus = booked` should appear in the **False Branch output**.
+
+---
+
+## 3. Insert Data into Airtable
+Since we only want to insert **processing** orders into Airtable:
+
+1. **Connect the If node's True Branch to the Airtable node**:
+   - Drag the **True connector** from the **If node** to the **Airtable** node.
+
+2. **Test the Airtable node**:
+   - Open your table in **Airtable** and delete all existing rows.
+   - Open the **Airtable node** in n8n and click **Test Step**.
+
+### Expected Results
+- Airtable should now contain only the **processing** orders.
+- The number of records in Airtable should now be **14 instead of 30**.
+
+---
+
+## Summary
+By implementing the **If node**, we've successfully filtered and inserted only `processing` orders into Airtable. The **booked** orders are handled separately, preventing unnecessary data entries. This ensures efficient data management and cleaner workflows.
+
+Now, your workflow is well-structured and ready for the next step!
+

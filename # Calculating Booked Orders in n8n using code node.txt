@@ -1,0 +1,90 @@
+# Calculating Booked Orders
+
+## Overview
+In this step, you will learn how n8n structures data and how to use the **Code node** to perform calculations using JavaScript. Specifically, you will calculate:
+
+1. The total number of booked orders.
+2. The total value of all booked orders.
+
+## Workflow Progress
+After completing this step, your workflow should resemble the following:
+
+[Click to explore](#) *(Add link to workflow file if available)*
+
+## Using the Code Node
+The **Code node** allows you to write custom JavaScript code for data processing. It supports two operational modes:
+
+- **Run Once for All Items**: Processes all input items as a group.
+- **Run Once for Each Item**: Executes code for each input item individually.
+
+For this step, we will use **Run Once for All Items** mode to calculate the booked orders.
+
+## Data Structure in n8n
+n8n passes data between nodes as an array of objects in the following JSON format:
+
+```json
+[
+    {
+       "json": {
+           "apple": "beets",
+           "carrot": {
+               "dill": 1
+           }
+       },
+       "binary": {
+           "apple-picture": {
+               "data": "....",
+               "mimeType": "image/png",
+               "fileExtension": "png",
+               "fileName": "example.png"
+           }
+       }
+    }
+]
+```
+
+For more details, refer to the [n8n data structure documentation](#).
+
+## Configuring the Code Node
+
+### 1. Add the Code Node
+- Connect a **Code node** to the **false** branch of the **If node**.
+
+### 2. Configure the Parameters
+- **Mode**: Select **Run Once for All Items**.
+- **Language**: Select **JavaScript**.
+
+> *Note*: You can also use Python in the Code node. Refer to the [Code node documentation](#) for more details.
+
+### 3. Add the Code
+Copy and paste the following JavaScript code into the **Code box**, replacing any existing code:
+
+```javascript
+let items = $input.all();
+let totalBooked = items.length;
+let bookedSum = 0;
+
+for (let i = 0; i < items.length; i++) {
+  bookedSum += items[i].json.orderPrice;
+}
+
+return [{ json: { totalBooked, bookedSum } }];
+```
+
+### 4. Understanding the Code
+- Retrieves all input items from the **If node**'s false branch.
+- Calculates the **total number of booked orders**.
+- Loops through the orders and sums up the **order prices**.
+- Returns the results in the required format:
+
+```json
+[{ "json": { "totalBooked": value, "bookedSum": value } }]
+```
+
+## Next Steps
+After configuring the Code node:
+- **Test the node** to ensure correct calculations.
+- **Continue building your workflow** by adding nodes for further processing.
+
+### 🎯 Congratulations! You've successfully added a Code node to calculate booked orders! 🚀
+

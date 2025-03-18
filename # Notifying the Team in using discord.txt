@@ -1,0 +1,56 @@
+# Notifying the Team
+
+## Overview
+In this step of the workflow, you will learn how to send messages to a Discord channel using the Discord node in n8n. This will allow Nathan's team to receive notifications about booked orders directly in their Discord server.
+
+After completing this step, your workflow should resemble the provided reference.
+
+## Prerequisites
+Before proceeding, ensure you:
+- Have access to the [n8n Discord server](https://discord.gg/n8n) and the `#course-level-1` channel.
+- Have your Webhook URL ready from the email received when signing up for this course.
+
+## Adding the Discord Node
+
+1. **Insert a Discord Node**
+   - In your workflow, add a **Discord node** connected to the **Code node**.
+   - Search for `Discord` in the node search bar.
+   - Select `Message Actions` > `Send a Message`.
+
+2. **Configure the Discord Node**
+   - **Connection Type:** Select `Webhook`.
+   - **Credential for Discord Webhook:** Select `- Create New Credential -`.
+   - **Webhook URL:** Copy and paste the Webhook URL from the course email.
+   - Click `Save` and close the credentials dialog.
+
+3. **Set Up the Message Content**
+   - In the **Discord node window**, configure the parameters:
+     - **Operation:** Select `Send a Message`.
+     - **Message:**
+       - Click the `Expression` tab on the right side of the Message field.
+       - Copy and paste the following expression:
+
+     ```
+     This week we've {{$json["totalBooked"]}} booked orders with a total value of {{$json["bookedSum"]}}.
+     My Unique ID: {{ $('HTTP Request').params["headerParameters"]["parameters"][0]["value"] }}
+     ```
+
+4. **Test the Discord Node**
+   - Click `Test step` in the Discord node.
+   - If successful, the output should be displayed in n8n and a message should be sent to the Discord channel.
+
+## Alternative Communication Apps
+Instead of Discord, you can use other communication nodes such as:
+- Slack
+- Mattermost
+
+These apps can be integrated in a similar way using their respective nodes in n8n.
+
+## Summary
+- You have successfully set up a Discord notification system for booked orders.
+- This ensures real-time updates for Nathan’s team.
+- You can modify this setup for different communication platforms if needed.
+
+---
+Now that you've completed this step, proceed to the next part of the workflow to finalize your automation!
+

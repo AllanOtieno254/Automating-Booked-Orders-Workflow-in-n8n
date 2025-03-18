@@ -1,0 +1,109 @@
+# Extracting Data from a Website using HTTP Requests in n8n
+
+## Overview
+This project involves obtaining data from a website using an **HTTP Request Node** in [n8n](https://n8n.io). You'll configure the request node with the appropriate credentials, authenticate using an API key, and retrieve structured data.
+
+---
+
+## Prerequisites
+Before you start, ensure you have the following:
+- An [n8n](https://n8n.io) account (sign up if you haven’t already).
+- The API credentials received via email from n8n upon course signup.
+- A basic understanding of HTTP requests.
+
+---
+
+## Step 1: Add an HTTP Request Node
+1. Open **n8n Editor UI**.
+2. Click the **+** button and select **HTTP Request Node**.
+3. The node configuration window will open. Adjust the parameters as shown below.
+
+---
+
+## Step 2: Configure HTTP Request Node
+
+### **General Settings**
+| Parameter   | Value  |
+|------------|--------|
+| **Method** | `GET` (Default) |
+| **URL** | Use the **Dataset URL** received in the email when signing up for the course |
+
+### **Headers Setup**
+1. Toggle **Send Headers** to `True`.
+2. Under **Specify Headers**, select `Using Fields Below`.
+3. **Header Parameters**:
+   - **Name**: `unique_id`
+   - **Value**: Use the **Unique ID** from the email.
+
+---
+
+## Step 3: Add Authentication
+
+### **Authentication Type**
+| Parameter   | Value  |
+|------------|--------|
+| **Authentication** | Generic Credential Type |
+| **Generic Auth Type** | Header Auth |
+
+### **Adding API Key**
+1. Click **+ Create New Credential**.
+2. In the **Credentials Window**, set the following:
+   - **Name**: Use the **Header Auth Name** from the email (`api_key`).
+   - **Value**: Use the **Header Auth Value** from the email (`j[vKYdY68H(:WFb`).
+3. Click **Save**.
+4. Exit the Credentials Window to return to the HTTP Request Node.
+
+#### **Credential Naming Best Practices**
+It’s good practice to name credentials based on the application, type, and purpose. For example:
+> `ABCorp_API_Key` instead of `Account1`.
+
+---
+
+## Step 4: Retrieve Data
+1. Click the **Test Step** button within the **HTTP Request Node**.
+2. You should see a table view of the data, which includes:
+
+| Column Name  | Description |
+|-------------|-------------|
+| **orderID**  | Unique ID of each order |
+| **customerID**  | Unique ID of each customer |
+| **employeeName**  | Name of the employee handling the customer |
+| **orderPrice**  | Total order price |
+| **orderStatus**  | Order status (Booked or Processing) |
+
+---
+
+## Understanding the Provided Credentials
+The API credentials you received serve specific roles:
+
+| Parameter  | Description |
+|------------|-------------|
+| **Unique ID** | Identifies the request, project, or user uniquely. |
+| **Webhook URL** | The URL endpoint where the extracted data is sent. |
+| **Dataset URL** | The URL where the structured data is stored or retrieved. |
+| **Header Auth Name** | Specifies the authentication method required (`api_key`). |
+| **Header Auth Value** | The secret API key required for authentication. |
+
+---
+
+## Example: Making a Direct API Request (Optional)
+If you want to fetch data manually via Python, use the following script:
+```python
+import requests
+
+url = "https://internal.users.n8n.cloud/webhook/custom-erp"
+headers = {"api_key": "j[vKYdY68H(:WFb"}
+
+response = requests.get(url, headers=headers)
+print(response.json())  # Display response data
+```
+
+---
+
+## Next Steps
+- Store the retrieved data in a database.
+- Integrate with a dashboard or visualization tool.
+- Automate data collection using n8n workflows.
+
+For more details, visit the [n8n documentation](https://docs.n8n.io/). Happy automating! 🚀
+

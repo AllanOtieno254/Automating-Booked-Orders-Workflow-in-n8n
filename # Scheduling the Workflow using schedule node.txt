@@ -1,0 +1,42 @@
+# Scheduling the Workflow
+
+## Overview
+This step of the workflow focuses on automating execution by scheduling it to run automatically at a fixed time using the **Schedule Trigger node** in n8n. After completing this step, your workflow will execute automatically every Monday at 9 AM instead of requiring manual execution.
+
+## Steps to Schedule the Workflow
+
+### 1. Remove the Manual Trigger Node
+Before scheduling the workflow, you need to remove the existing **Manual Trigger node**:
+- Select the **Manual Trigger node** connected to your **HTTP Request node**.
+- Click on the **trash can icon** to delete it.
+- The "Add first step" option will appear, indicating that the workflow is ready for a new trigger.
+
+### 2. Add the Schedule Trigger Node
+Next, add the **Schedule Trigger node** to automate the workflow:
+1. Open the **nodes panel** and search for **Schedule Trigger**.
+2. Select the node when it appears in the search results.
+3. Configure the following parameters:
+   - **Trigger Interval:** Select `Weeks`.
+   - **Weeks Between Triggers:** Enter `1`.
+   - **Trigger on weekdays:** Select `Monday` (remove `Sunday` if added by default).
+   - **Trigger at Hour:** Select `9 AM`.
+   - **Trigger at Minute:** Enter `0`.
+
+Your **Schedule Trigger node** should now be properly configured to run every Monday at 9 AM.
+
+### 3. Set the Correct Timezone
+To ensure the workflow runs at the correct time:
+- Verify that the **timezone settings** are correctly configured in your **n8n instance** or the **workflow settings**.
+- The **Schedule Trigger node** will use the workflow's timezone if set; otherwise, it will fall back to the n8n instance’s timezone.
+
+### 4. Connect the Schedule Trigger Node
+- Return to the workflow canvas.
+- Drag the connection arrow from the **Schedule Trigger node** to the **HTTP Request node**.
+- This ensures the workflow starts automatically based on the scheduled time.
+
+## Conclusion
+By following these steps, your workflow will now execute **automatically every Monday at 9 AM**, eliminating the need for manual execution. This improves efficiency and ensures the task runs consistently at the desired time.
+
+---
+**Next Steps:** Test the workflow by waiting for the scheduled time or adjusting the interval for a quicker test run.
+
