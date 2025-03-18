@@ -1,0 +1,21 @@
+n8n-Workflow-Automation/
+│── 📜 README.md
+│── 📜 LICENSE
+│── 📂 workflows/
+│   ├── booked_orders_workflow.json
+│   ├── discord_notification_workflow.json
+│   ├── scheduled_workflow.json
+│── 📂 src/
+│   ├── code_node_booked_orders.js
+│   ├── discord_message_template.txt
+│── 📂 docs/
+│   ├── workflow_overview.md
+│   ├── n8n_code_node_usage.md
+│── 📂 assets/
+│   ├── workflow_diagram.png
+│   ├── schedule_trigger_screenshot.png
+│── 📂 config/
+│   ├── env_example
+│   ├── webhook_config.json
+│── 📜 .gitignore
+│── 📜 CONTRIBUTING.md
