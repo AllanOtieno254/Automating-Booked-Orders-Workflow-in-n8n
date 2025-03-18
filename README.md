@@ -2,6 +2,8 @@
 
 ## Overview
 This project demonstrates how to automate the process of handling booked orders using **n8n**, an automation platform. The workflow includes fetching booked orders, calculating key metrics, notifying the team via Discord, and scheduling the automation.
+
+
 ![Main project workflow ](https://github.com/user-attachments/assets/1023cd3e-cd60-4db0-a8d0-6d1f1fa4724f)
 
 ## Table of Contents
